@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Report Crime Form</title>
+	<link rel="stylesheet" type="text/css" href="/styles/report_crime.css">
+	<script src="/styles/report_crime.js"></script>
+</head>
+<body>
+	<header>
+		<h1>Report Crime in Your Area</h1>
+	</header>
+	<main>
+		<form id="report-form" method="post" action="/report-crime">
+			<label for="crime-type">Type of Crime:</label>
+			<select name="typeOfCrime" id="crime-type" required>
+				<option>Select Crime Type</option>
+				<option value="Assault">Assault</option>
+				<option value="Robbery">Robbery</option>
+				<option value="Burglary">Burglary</option>
+				<option value="Hijacking">Hijacking</option>
+				<option value="Theft">Theft</option>
+				<option value="Other">Other</option>
+			</select>
+
+			<label for="description">Description:</label>
+			<textarea id="description" name="description" rows="5" placeholder="Please describe the crime you witnessed..." required></textarea>
+
+			<label for="location">Location:</label>
+			<input type="text" id="location" name="location" placeholder="Enter the location of the crime" required>
+
+			<label for="date">Date of Crime:</label>
+			<input type="date" id="date" name="dateOfCrime" required>
+
+			<label for="time">Time of Crime:</label>
+			<input type="time" id="time" name="timeOfCrime" required>
+
+			<button type="submit">Report Crime</button>
+			<a href="/crimes">Reported Crimes</a>
+		</form>
+<!--		<table>-->
+<!--			<thead>-->
+<!--				<tr>-->
+<!--					<th>Type of Crime</th>-->
+<!--					<th>Description</th>-->
+<!--					<th>Location</th>-->
+<!--					<th>Date of Crime</th>-->
+<!--					<th>Time of Crime</th>-->
+<!--				</tr>-->
+<!--			</thead>-->
+<!--			<tbody id="reported-crimes">-->
+<!--                <tr th:each="crime: ${crimes}">-->
+<!--                    <td th:text="${crime.id}"></td>-->
+<!--                    <td th:text="${crime.typeOfCrime}"></td>-->
+<!--                    <td th:text="${crime.description}"></td>-->
+<!--                    <td th:text="${crime.location}"></td>-->
+<!--                    <td th:text="${crime.dateOfCrime}"></td>-->
+<!--                    <td th:text="${crime.timeOfCrime}"></td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--		</table>-->
+	</main>
+</body>
+<footer>
+	<p>&copy; 2023 My Crime Notifier App</p>
+</footer>
+</html>

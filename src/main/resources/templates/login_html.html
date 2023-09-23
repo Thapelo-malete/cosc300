@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login - Crime Notifier App</title>
+	<link rel="stylesheet" type="text/css" href="/styles/login_registration.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+	<div class="container">
+		<h1>Login</h1>
+		<form method="post" action="/user/login">
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="username" required autofocus>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			<button type="submit">Sign in</button>
+		</form>
+		<a href="/user/reset/password" style="text-decoration: underline;">
+			<small>Forgot password?</small>
+		</a>
+		<div class="login-alternative-statement">
+			<div class="line"></div>
+			<span class="text">or sign in with</span>
+		</div>
+		<div class="login-alternatives">
+			<a href="http://localhost:8080/login/oauth2/code/google" class="google">
+				<i class="fab fa-google"></i> Sign in with <b>Google</b>
+			</a>
+			<a href="/oauth2/authorization/google" class="facebook">
+				<i class="fab fa-facebook-f"></i> Sign in with <b>Facebook</b>
+			</a>
+		</div>
+		<p><small>Don't have an account? <a href="/user/register">Register here</small></a></p>
+	</div>
+</body>
+</html>

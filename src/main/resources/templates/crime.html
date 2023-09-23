@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crime Notifier App</title>
+	<link rel="stylesheet" type="text/css" href="/styles/crime_notifier.css">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul> 
+				<li><a href="#">Home</a></li>
+				<li><a href="emergency_contacts.html">Emergency Contacts</a></li>
+				<li><a href="report_crime.html">Report a Crime</a></li>
+				<li><a href="login_html.html">Login</a></li>
+				<li><a href="registration_html.html">Register</a></li>
+				<li><a href="FAQs.html">FAQs</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section class="hero">
+			<h1>Stay Safe</h1>
+			<p>Our app is designed to help you stay safe by providing real-time updates on crime hotspots in your area.</p>
+			<a href="#crime-map"><button>View Crime Map</button></a>
+		</section>
+		<section class="crime-map" id="crime-map">
+			<h2>Crime Map</h2>
+			<p>Use the map below to see crime hotspots in your area. If you're currently in a high-crime area, we recommend you move to a safer location.</p>
+			<div id="map"></div>
+		</section>
+	</main>
+	<footer>
+		<p>&copy; 2023 My App</p>
+	</footer>
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+	<script src="crime_notifier.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Report Crime Form</title>
+    <link rel="stylesheet" type="text/css" href="/styles/report_crime.css">
+    <link rel="stylesheet" type="text/css" href="/styles/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/styles/report_crime.js"></script>
+</head>
+<body>
+    <header>
+    <nav>
+        <button class="menu-button"><i class="fa fa-bars"></i></button>
+        <ul class="nav-left">
+            <li><a href="/">Home</a></li>
+            <li><a href="/emergency-contacts">Emergency contacts</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/faqs">FAQs</a></li>
+        </ul>
+
+        <ul class="nav-right">
+            <li th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/user/login">Login here</a></li>
+            <li th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/user/register">Register here</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}" class="dropdown">
+                <button class="dropdown-btn">
+                    <i class="fa fa-user-circle"></i>
+                    <span th:text="${#authentication.principal.username}" class="name"></span>
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-items">
+                    <li><a href="/account">Account <i class="far fa-id-badge"></i></a></li>
+                    <li><a href="/logout">Sign out <i class="fas fa-sign-out-alt"></i></a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+    <table>
+        <h1>Reported Crimes</h1>
+        <thead>
+        <tr>
+            <th>Crime id</th>
+            <th>Type of Crime</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Date of Crime</th>
+            <th>Time of Crime</th>
+        </tr>
+        </thead>
+        <tbody id="reported-crimes">
+        <tr th:each="crime: ${crimes}">
+            <td th:text="${crime.id}"></td>
+            <td th:text="${crime.typeOfCrime}"></td>
+            <td th:text="${crime.description}"></td>
+            <td th:text="${crime.location}"></td>
+            <td th:text="${crime.dateOfCrime}"></td>
+            <td th:text="${crime.timeOfCrime}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

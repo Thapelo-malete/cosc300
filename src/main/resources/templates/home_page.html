@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Crime Notifier App</title>
+	<link rel="stylesheet" type="text/css" href="/styles/home.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="/scripts/home.js" defer></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<button class="menu-button"><i class="fa fa-bars"></i></button>
+			<ul class="nav-left">
+				<li><a href="/">Home</a></li>
+				<li><a href="/emergency-contacts">Emergency contacts</a></li>
+				<li><a href="/contact">Contact Us</a></li>
+				<li><a href="/faqs">FAQs</a></li>
+			</ul>
+
+			<ul class="nav-right">
+				<li th:if="${username}"><a href="/user/login">Login here</a></li>
+				<li th:if="${username}"><a href="/user/register">Register here</a></li>
+				<li th:if="${username}" class="dropdown">
+					<button class="dropdown-btn">
+						<i class="fa fa-user-circle"></i>
+						<span th:text="${username}" class="name"></span>
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<ul class="dropdown-items">
+						<li><a href="/account">Account <i class="far fa-id-badge"></i></a></li>
+						<li><a href="/logout">Sign out <i class="fas fa-sign-out-alt"></i></a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section class="hero">
+			<div class="hero-text">
+				<h1>Welcome to My Crime Notifier App</h1>
+				<p>Our app is designed to help people dealing with suicidal thoughts and to report crimes around your area.</p>
+				<a href="/learn-more"><button>Learn More</button></a>
+			</div>
+		</section>
+		<section class="features">
+			<h2>Our Features</h2>
+			<div class="features-container">
+				<div class="feature">
+					<i class="fa fa-check-circle"></i>
+					<h3><a href="/suicidal-prevention">Suicidal Thoughts and Prevention</a></h3>
+					<p>Our app provides educational information about suicide, signs to look out for, and ways to seek help.</p>
+				</div>
+				<div class="feature">
+					<i class="fa fa-check-circle"></i>
+					<h3><a href="/crime-notifier">Crime Notifier</a></h3>
+					<p>Users will be notified of crime hotspots in real-time and can report any suspicious activity to help prevent crime.</p>
+				</div>
+				<div class="feature">
+					<i class="fa fa-check-circle"></i>
+					<h3><a href="/chatbox">Chat Box</a></h3>
+					<p>Users can interact with other users in their area to provide more awareness and support.</p>
+				</div>
+				<div class="feature">
+					<i class="fa fa-check-circle"></i>
+					<h3><a href="/assistance">Contact professional helpers</a></h3>
+					<p>Users will be notified of crime hotspots in real-time and can report any suspicious activity to help prevent crime.</p>
+				</div>
+				<div class="feature">
+					<i class="fa fa-check-circle"></i>
+					<h3><a href="/report-crime">Report Crime</a></h3>
+					<p>Users will be notified of crime hotspots in real-time and can report any suspicious activity to help prevent crime.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer>
+		<p>&copy; 2023 My Crime Notifier App</p>
+	</footer>
+</body>
+</html>

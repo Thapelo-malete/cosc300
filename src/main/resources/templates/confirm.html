@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="/images/email-illustrator.png" alt="" />
+        </div>
+        <div class="email-content">
+            <h1>Verify Email Address</h1>
+            <div class="intro">
+                <p>
+                    Confirmation email sent to your email <b th:text="${email}"></b>. Please confirm your email to complete your
+                    registration
+                    and note that the confirmation link expire after <b>5 minutes</b>.
+                </p>
+                <!-- <div class="link">
+                        <a href="" class="btn">Resend email</a>
+                    </div> -->
+            </div>
+    
+        </div>
+    </div>
+</body>
+</html>

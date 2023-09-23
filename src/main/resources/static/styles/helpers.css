@@ -1,0 +1,36 @@
+.contact-professionals {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .contact-professionals h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .contact-professionals p {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .contact-professionals ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .contact-professionals li {
+    margin-bottom: 5px;
+  }
+  
+  .contact-professionals a {
+    color: #0077c0;
+    text-decoration: none;
+  }
+  
+  .contact-professionals a:hover {
+    text-decoration: underline;
+  }
+  

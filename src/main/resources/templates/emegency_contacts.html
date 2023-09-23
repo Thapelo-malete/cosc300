@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crime Notifier App</title> 
+	<link rel="stylesheet" type="text/css" href="/styles/emegency_contacts.css">
+    <script type="text/javascript" src="/scripts/emegency_contacts.js"></script>
+</head>
+<body>
+<div id="emergency-contact">
+    <h2>Emergency Contact</h2>
+    <form id="emergency-form" action="/emergency-contacts/add" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phoneNumber" required>
+      
+      <label for="relationship">Relationship:</label>
+      <input type="text" id="relationship" name="relationship" required>
+      
+      <button type="submit" id="submit-button">Save</button>
+    </form>
+  </div>
+  </body>
+  </html>
+  

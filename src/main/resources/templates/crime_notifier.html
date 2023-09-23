@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crime Map of South Africa</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUCnmaVxA-YGvm7ZP7jf25GMr01ebDH00"></script>
+  <script>
+    function initMap() {
+      // Set the coordinates of the center of the map
+      var center = {lat: -30.5595, lng: 22.9375};
+
+      // Create the map object
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: center
+      });
+
+      // Add markers for crime locations
+      var crimeLocations = [
+        {lat: -33.9258, lng: 18.4232, type: 'Assault'},
+        {lat: -26.2041, lng: 28.0473, type: 'Robbery'},
+        {lat: -29.8587, lng: 31.0218, type: 'Murder'}
+      ];
+      
+      for (var i = 0; i < crimeLocations.length; i++) {
+        var crimeLocation = crimeLocations[i];
+        
+        var marker = new google.maps.Marker({
+          position: crimeLocation,
+          map: map,
+          title: crimeLocation.type
+        });
+      }
+    }
+  </script>
+  <style>
+    #map {
+      height: 500px;
+    }
+  </style>
+</head>
+<body onload="initMap()">
+  <div id="map"></div>
+</body>
+</html>
+
