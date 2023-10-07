@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychologist Profiles</title>
+    <link rel="stylesheet" href="/styles/psychologist.css">
+</head>
+<body>
+    <div class="psychologist-profiles">
+        <h1>Psychologist Profiles</h1>
+
+        <!-- Profile 1: Hlahla Julia -->
+
+
+            <div th:each="psychologist: ${psychologists}" class="profile">
+                <img th:src="${psychologist.imageUrl}" alt="Hlahla Julia">
+                <h2 th:text="${psychologist.psychologist.getFirstName() +
+                ' ' + psychologist.psychologist.lastName}"></h2>
+                <p>Position: <span th:text="${psychologist.position}"></span></p>
+                <p>Office: <span th:text="${psychologist.office}"></span></p>
+                <p>Email: <span th:text="${psychologist.psychologist.email}"></span></p>
+                <p>Tel: <span th:text="${psychologist.telephone}"></span></p>
+                <p>Fax: <span th:text="${psychologist.fax}"></span></p>
+                <a th:href="${'/app/psychologist/book?id=' + psychologist.psychologist.userId}"></a>
+            </div>
+
+<!--            <div class="profile">-->
+<!--                <img src="/images/hlahla.png" alt="Hlahla Julia">-->
+<!--                <h2>Hlahla Julia</h2>-->
+<!--                <p>Position: Student Counsellor</p>-->
+<!--                <p>Office: D-Block</p>-->
+<!--                <p>Email: julia.hlahla@ul.ac.za</p>-->
+<!--                <p>Tel: 015 268 2554/2437</p>-->
+<!--                <p>Fax: 015 268 2556</p>-->
+<!--                <button onclick="scheduleAppointment('Hlahla Julia')">Book Appointment</button>-->
+<!--            </div>-->
+<!--    -->
+<!--            &lt;!&ndash; Profile 2: Matimba Chauke &ndash;&gt;-->
+<!--            <div class="profile">-->
+<!--                <img src="/images/matimba.jpg" alt="Matimba Chauke">-->
+<!--                <h2>Matimba Chauke</h2>-->
+<!--                <p>Position: Junior Counsellor: Resource Centre</p>-->
+<!--                <p>Office: D-Block 0001</p>-->
+<!--                <p>Email: matimba.chauke@ul.ac.za</p>-->
+<!--                <p>Tel: 015 268 23184</p>-->
+<!--                <p>Fax: 015 268 2556/0866627206</p>-->
+<!--                <button onclick="scheduleAppointment('Matimba Chauke')">Book Appointment</button>-->
+<!--            </div>-->
+<!--    -->
+<!--            &lt;!&ndash; Profile 3: Nhlori Ngobeni &ndash;&gt;-->
+<!--            <div class="profile">-->
+<!--                <img src="/images/nhlori.jpeg" alt="Nhlori Ngobeni">-->
+<!--                <h2>Nhlori Ngobeni</h2>-->
+<!--                <p>Position: Student Counsellor/Psychologist</p>-->
+<!--                <p>Office: D-Block 0001</p>-->
+<!--                <p>Email: nhlori.ngobeni@ul.ac.za</p>-->
+<!--                <p>Tel: 015 268 2554</p>-->
+<!--                <p>Fax: 015 268 2556/0866627206</p>-->
+<!--                <button onclick="scheduleAppointment('Nhlori Ngobeni')">Book Appointment</button>-->
+<!--            </div>-->
+<!--    -->
+<!--            &lt;!&ndash; Profile 4: Dorothy Malemela &ndash;&gt;-->
+<!--            <div class="profile">-->
+<!--                <img src="/images/dorothy.jpg" alt="Dorothy Malemela">-->
+<!--                <h2>Dorothy Malemela</h2>-->
+<!--                <p>Position: Student Counsellor/Psychologist</p>-->
+<!--                <p>Office: D-Block 0001</p>-->
+<!--                <p>Email: raesetsa.malemela@ul.ac.za</p>-->
+<!--                <p>Tel: 015 268 2553</p>-->
+<!--                <p>Fax: 015 268 2556/0866627206</p>-->
+<!--                <button onclick="scheduleAppointment('Dorothy Malemela')">Book Appointment</button>-->
+<!--            </div>-->
+        </div>
+    </div>
+    <script src="/scripts/psychologist.js"></script>
+</body>
+</html>

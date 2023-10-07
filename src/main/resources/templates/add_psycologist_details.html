@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Register - Crime Notifier App</title>
+    <link rel="stylesheet" type="text/css" href="/styles/login_registration.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/scripts/registration.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Register</h1>
+    <form method="post" action="/user/register">
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" required>
+        <label for="office">Office:</label>
+        <input type="text" id="office" name="office" required>
+        <label for="telephone">Tel:</label>
+        <input type="text" id="telephone" name="telephone" required>
+        <label for="fax">Fax:</label>
+        <input type="text" id="fax" name="fax" required>
+        <label for="imageUrl">Image:</label>
+        <input type="text" id="imageUrl" name="imageUrl" required>
+
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="login_html.html">Login here</a></p>
+</div>
+
+</body>
+</html>

@@ -20,12 +20,12 @@
 			</ul>
 
 			<ul class="nav-right">
-				<li th:if="${username}"><a href="/user/login">Login here</a></li>
-				<li th:if="${username}"><a href="/user/register">Register here</a></li>
-				<li th:if="${username}" class="dropdown">
+				<li sec:authorize="!isAuthenticated()"><a href="/user/login">Login here</a></li>
+				<li sec:authorize="!isAuthenticated()"><a href="/user/register">Register here</a></li>
+				<li sec:authorize="isAuthenticated()" class="dropdown">
 					<button class="dropdown-btn">
 						<i class="fa fa-user-circle"></i>
-						<span th:text="${username}" class="name"></span>
+						<span th:text="${#authentication.name}" class="name"></span>
 						<i class="fa fa-caret-down"></i>
 					</button>
 					<ul class="dropdown-items">

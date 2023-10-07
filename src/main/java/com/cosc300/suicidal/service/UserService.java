@@ -1,17 +1,24 @@
 package com.cosc300.suicidal.service;
 
+import com.cosc300.suicidal.model.PsychologistDetails;
 import com.cosc300.suicidal.model.User;
+import com.cosc300.suicidal.model.enums.UserRole;
 import com.cosc300.suicidal.registration.confirmationToken.ConfirmationToken;
 import com.cosc300.suicidal.registration.confirmationToken.ConfirmationTokenRepository;
 import com.cosc300.suicidal.registration.exceptions.EmailTakenException;
 import com.cosc300.suicidal.registration.exceptions.UserDoesNotExistException;
 import com.cosc300.suicidal.registration.exceptions.UserExistsException;
+import com.cosc300.suicidal.repository.PsychologistDetailsRepository;
 import com.cosc300.suicidal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
+    @Autowired
+    private PsychologistDetailsRepository psychologistDetailsRepository;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -31,15 +40,16 @@ public class UserService {
     public String signUpUser(User user) throws EmailTakenException {
         User dbUser = userRepository.findUserByEmail(user.getEmail());
 
-        if (dbUser != null && dbUser.getEnabled() == true){
+        if (dbUser != null && dbUser.getEnabled()){
             throw new EmailTakenException("Email already exception");
-        } else if (dbUser != null && dbUser.getEnabled() == false) {
+        } else if (dbUser != null && !dbUser.getEnabled()) {
             dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userRepository.save(dbUser);
             throw new UserExistsException("User exists but unverified", user.getEmail());
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole(UserRole.USER);
         userRepository.save(user);
 
         String token = UUID.randomUUID().toString();
@@ -51,6 +61,7 @@ public class UserService {
         );
 
         confirmationTokenRepository.save(confirmationToken);
+
         System.out.println(token + "from sign up method");
         return token;
     }
@@ -77,5 +88,38 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
         return "enabled";
+    }
+
+    public String addPsychologist(User user) {
+        User dbUser = userRepository.findUserByEmail(user.getEmail());
+        if (dbUser != null) {
+            throw new EmailTakenException("User is already registered");
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole(UserRole.PSYCHOLOGIST);
+        userRepository.save(user);
+
+        return "Done";
+    }
+
+    public String addPsychologistDetails(PsychologistDetails psychologistDetails, Integer id) {
+        Optional<User> psychologist = userRepository.findById(id);
+        if (psychologist.isEmpty() || !(psychologist.get().getRole() == UserRole.PSYCHOLOGIST)) {
+            throw new UserDoesNotExistException("Psychologist with the given id:" + id + " does not exist");
+        }
+
+        if (psychologistDetailsRepository.findPsychologistDetailsByPsychologist(
+                psychologist.orElseThrow()
+        ) != null) {
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
+        }
+        psychologistDetails.setPsychologist(psychologist.orElseThrow());
+        psychologistDetailsRepository.save(psychologistDetails);
+        return "created";
+    }
+
+    public List<PsychologistDetails> getAllPsychologists() {
+        return psychologistDetailsRepository.findAll();
     }
 }

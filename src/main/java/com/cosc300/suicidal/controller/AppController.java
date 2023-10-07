@@ -7,6 +7,7 @@ import com.cosc300.suicidal.model.User;
 import com.cosc300.suicidal.repository.CrimeRepository;
 import com.cosc300.suicidal.repository.EmergencyContactRepository;
 import com.cosc300.suicidal.repository.UserRepository;
+import com.cosc300.suicidal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,10 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping(path = "/app")
 public class AppController {
     @Autowired
     private CrimeRepository crimeRepository;
@@ -32,23 +35,11 @@ public class AppController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal OAuth2User principal){
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        Object ob = authentication.getPrincipal();
-        System.out.println("principal: " + ob.toString());
-
-        
-        User user = userRepository.findUserByEmail(((MyUserDetails)(ob)).getUsername());
-        
-        
-
-        if (user != null) {
-            model.addAttribute("username", user.getFirstName() + " " + user.getLastName());
-        } else if (principal != null) {
-            model.addAttribute("username", principal.getName());
-        }
         return "home_page";
     }
 
@@ -65,7 +56,7 @@ public class AppController {
     @PostMapping("/emergency-contacts/add")
     public String addEmergencyContact(EmergencyContact emergencyContact) {
 
-        /* this use the logged in email to find the user from the database and then sets
+        /* this use the logged-in email to find the user from the database and then sets
          it to the emergency contact*/
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
@@ -136,5 +127,21 @@ public class AppController {
         List<Crime> crimes = crimeRepository.findAll();
         model.addAttribute("crimes", crimes);
         return "crimes";
+    }
+
+    @GetMapping("/message-board")
+    public String messageBoard() {
+        return "message_board";
+    }
+
+    @GetMapping("/analyzer")
+    public String analyzer() {
+        return "analyzer";
+    }
+
+    @GetMapping("/psychologist")
+    public String psychologist(Model model) {
+        model.addAttribute("psychologists", userService.getAllPsychologists());
+        return "psychologist";
     }
 }
