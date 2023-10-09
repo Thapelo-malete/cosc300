@@ -42,7 +42,7 @@ public class UserService {
 
         if (dbUser != null && dbUser.getEnabled()){
             throw new EmailTakenException("Email already exception");
-        } else if (dbUser != null && !dbUser.getEnabled()) {
+        } else if  (dbUser != null) {
             dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userRepository.save(dbUser);
             throw new UserExistsException("User exists but unverified", user.getEmail());
@@ -90,7 +90,7 @@ public class UserService {
         return "enabled";
     }
 
-    public String addPsychologist(User user) {
+    public void addPsychologist(User user) {
         User dbUser = userRepository.findUserByEmail(user.getEmail());
         if (dbUser != null) {
             throw new EmailTakenException("User is already registered");
@@ -100,7 +100,6 @@ public class UserService {
         user.setRole(UserRole.PSYCHOLOGIST);
         userRepository.save(user);
 
-        return "Done";
     }
 
     public String addPsychologistDetails(PsychologistDetails psychologistDetails, Integer id) {
@@ -121,5 +120,9 @@ public class UserService {
 
     public List<PsychologistDetails> getAllPsychologists() {
         return psychologistDetailsRepository.findAll();
+    }
+
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
     }
 }

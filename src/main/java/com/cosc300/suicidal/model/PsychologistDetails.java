@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 public class PsychologistDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer detailsId;
+    private Integer detailsId;
     private String position;
     private String office;
     private String telephone;
     private String fax;
     private String imageUrl;
 
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private User psychologist;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User psychologist;
 
 }

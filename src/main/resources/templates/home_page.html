@@ -14,22 +14,22 @@
 			<button class="menu-button"><i class="fa fa-bars"></i></button>
 			<ul class="nav-left">
 				<li><a href="/">Home</a></li>
-				<li><a href="/emergency-contacts">Emergency contacts</a></li>
-				<li><a href="/contact">Contact Us</a></li>
-				<li><a href="/faqs">FAQs</a></li>
+				<li><a href="/app/emergency-contacts">Emergency contacts</a></li>
+				<li><a href="/app/contact">Contact Us</a></li>
+				<li><a href="/app/faqs">FAQs</a></li>
 			</ul>
 
 			<ul class="nav-right">
-				<li sec:authorize="!isAuthenticated()"><a href="/user/login">Login here</a></li>
-				<li sec:authorize="!isAuthenticated()"><a href="/user/register">Register here</a></li>
-				<li sec:authorize="isAuthenticated()" class="dropdown">
+				<li th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/user/login">Login here</a></li>
+				<li th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/user/register">Register here</a></li>
+				<li th:if="${#authorization.expression('isAuthenticated()')}" class="dropdown">
 					<button class="dropdown-btn">
 						<i class="fa fa-user-circle"></i>
-						<span th:text="${#authentication.name}" class="name"></span>
+						<span th:text="${#authentication.principal.username}" class="name"></span>
 						<i class="fa fa-caret-down"></i>
 					</button>
 					<ul class="dropdown-items">
-						<li><a href="/account">Account <i class="far fa-id-badge"></i></a></li>
+						<li><a href="/app/account">Account <i class="far fa-id-badge"></i></a></li>
 						<li><a href="/logout">Sign out <i class="fas fa-sign-out-alt"></i></a></li>
 					</ul>
 				</li>

@@ -8,13 +8,10 @@ import com.cosc300.suicidal.repository.CrimeRepository;
 import com.cosc300.suicidal.repository.EmergencyContactRepository;
 import com.cosc300.suicidal.repository.UserRepository;
 import com.cosc300.suicidal.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,22 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(path = "/app")
 public class AppController {
-    @Autowired
-    private CrimeRepository crimeRepository;
+    private final CrimeRepository crimeRepository;
+    private final EmergencyContactRepository emergencyContactRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
-    @Autowired
-    private EmergencyContactRepository emergencyContactRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal OAuth2User principal){
+    @GetMapping
+    public String home(){
         return "home_page";
     }
 
@@ -61,7 +52,7 @@ public class AppController {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         User user = userRepository.findUserByEmail(
-                ((UserDetails)authentication.getPrincipal()
+                ((MyUserDetails)authentication.getPrincipal()
         ).getUsername());
 
         emergencyContact.setUser(user);

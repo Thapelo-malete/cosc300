@@ -1,7 +1,8 @@
 package com.cosc300.suicidal.security;
 
+import com.cosc300.suicidal.model.enums.UserRole;
 import com.cosc300.suicidal.service.MyUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,40 +14,46 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                    "/",
-                    "/user/password/reset/confirm/**", 
-                    "/user/password/reset/**",
-                    "/user/token/resend/**",
-                    "/user/confirm/**",
-                    "/user/password/update/**",
-                    "/user/password/update**",
-                    "/user/reset/password/**",
-                    "/user/**",
                     "/resources/static/**","/styles/**", 
                     "/scripts/**", "/images/**"
                 ).permitAll()
+                .requestMatchers(
+                        "/",
+                        "/user/password/reset/confirm/**",
+                        "/user/password/reset/**",
+                        "/user/token/resend/**",
+                        "/user/confirm/**",
+                        "/user/password/update/**",
+                        "/user/password/update**",
+                        "/user/reset/password/**",
+                        "/user/**"
+                ).anonymous()
+                .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
+                .requestMatchers("/app/**").hasRole(UserRole.USER.toString())
+                .requestMatchers("/psychologist/**").hasRole(UserRole.PSYCHOLOGIST.toString())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
+                .successForwardUrl("/app")
                 .and()
                 .oauth2Login();
 
         return httpSecurity.build();
     }
 
-    @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private final MyUserDetailsService myUserDetailsService;
 
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    };
+    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
