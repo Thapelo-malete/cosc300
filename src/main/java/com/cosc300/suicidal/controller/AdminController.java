@@ -1,6 +1,9 @@
 package com.cosc300.suicidal.controller;
 
 import com.cosc300.suicidal.model.User;
+import com.cosc300.suicidal.model.enums.UserRole;
+import com.cosc300.suicidal.repository.CrimeRepository;
+import com.cosc300.suicidal.repository.UserRepository;
 import com.cosc300.suicidal.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/admin")
 public class AdminController {
     private final UserService userService;
+    private final CrimeRepository crimeRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/psychologist")
     public String addPsychologist(Model model) {
@@ -36,7 +41,10 @@ public class AdminController {
     }
 
     @GetMapping("/home")
-    public String adminHome() {
+    public String adminHome(Model model) {
+        model.addAttribute("users", userRepository.findAllByRole(UserRole.USER));
+        model.addAttribute("allPsychologists", userService.getAllPsychologists());
+        model.addAttribute("crimes", crimeRepository.findAll());
         return "index";
     }
 }

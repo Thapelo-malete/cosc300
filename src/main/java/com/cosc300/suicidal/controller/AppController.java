@@ -1,12 +1,10 @@
 package com.cosc300.suicidal.controller;
 
-import com.cosc300.suicidal.model.Crime;
-import com.cosc300.suicidal.model.EmergencyContact;
-import com.cosc300.suicidal.model.MyUserDetails;
-import com.cosc300.suicidal.model.User;
+import com.cosc300.suicidal.model.*;
 import com.cosc300.suicidal.repository.CrimeRepository;
 import com.cosc300.suicidal.repository.EmergencyContactRepository;
 import com.cosc300.suicidal.repository.UserRepository;
+import com.cosc300.suicidal.service.PostService;
 import com.cosc300.suicidal.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -28,6 +26,7 @@ public class AppController {
     private final EmergencyContactRepository emergencyContactRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final PostService postService;
 
     @GetMapping
     public String home(){
@@ -139,6 +138,13 @@ public class AppController {
     @GetMapping("/community")
     public String community(Model model) {
         model.addAttribute("user", userService.getAuthenticatedUser());
+        model.addAttribute("allPosts", postService.allPosts());
         return "home";
+    }
+
+    @PostMapping("/post/add")
+    public String addPost(Post post) {
+        postService.addPost(post);
+        return "redirect:/app/community";
     }
 }

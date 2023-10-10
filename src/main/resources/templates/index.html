@@ -44,7 +44,7 @@
                             </div>
                             <div class="text">
                                 <h1>Users</h1>
-                                <span class="number">200</span>
+                                <span class="number" th:text="${users.size()}">200</span>
                             </div>
                         </div>
                     </a>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="text">
                                 <h1>Psychologists</h1>
-                                <span class="number">200</span>
+                                <span class="number" th:text="${allPsychologists.size()}">200</span>
                             </div>
                         </div>
                     </a>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="text">
                                 <h1>Crimes</h1>
-                                <span class="number">200</span>
+                                <span class="number" th:text="${crimes.size()}">200</span>
                             </div>
                         </div>
                     </a>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="text">
                                 <h1>Messages</h1>
-                                <span class="number">200</span>
+                                <span class="number">0</span>
                             </div>
                         </div>
                     </a>

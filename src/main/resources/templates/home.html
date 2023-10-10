@@ -5,7 +5,7 @@
 	<!-- CSS and JavaScript references -->
 	<link rel="stylesheet" type="text/css" href="/styles/header.css">
 	<link rel="stylesheet" type="text/css" href="/styles/posts.css">
-	<link rel="stylesheet" href="home.css">
+	<link rel="stylesheet" href="/styles/home.css">
 	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 		integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -57,8 +57,8 @@
 			<div class="leftfixed">
 				<!-- start sidebar left -->
 				<div class="sidebarleft">
-					<img src="../images/profile/upload.png"/>
-					<p id="sidename"> Thapelo</p>
+					<img src="/images/user.png"/>
+					<p id="sidename" th:text="${user.firstName}"> Thapelo</p>
 					<p id="ssn"> cosc project leader</p>
 					<p id="country">RSA</p>
 					<a href="profile.html" id="viewall">View All</a>
@@ -75,23 +75,25 @@
 				<!-- Start of post an content -->
 				<div class="main mainpost" style="margin-bottom:20px; padding-bottom:10px;">	
 
-					<div class="userimg"><img src="../images/profile/upload.png"/>
+					<div class="userimg"><img src="/images/user.png"/>
 						</div>
-					    <div class="username">				 <p class="name" style="top:15px;">Thapelo</p>
+					    <div class="username">				 <p class="name" style="top:15px;" th:text="${user.firstName}">Thapelo</p>
 					    </div>
-						<p class="quotes">
-							<textarea id="mypara" placeholder="Share an article ,photo ,video or idea."></textarea>
-						</p>
-						<!-- image load to post -->
-						<div class="post">
-							<img id="load2" class="postimg" src=" "/>
-						</div>
+						<form action="/app/post/add" method="post">
+							<p class="quotes">
+								<textarea name="content" id="mypara" placeholder="Share an article ,photo ,video or idea."></textarea>
+							</p>
+							<!-- image load to post -->
+							<div class="post">
+								<img id="load2" class="postimg" src=" "/>
+							</div>
 
-						<div class="postbar">
-							<input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" />
-							<button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Images</button>
-							<button type="button" id="postmypost" class="postmypost" onclick="mypost();">Post</button>
-						</div>
+							<div class="postbar">
+								<input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" />
+								<button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Images</button>
+								<button type="submit" id="postmypost" class="postmypost" onclick="mypost();">Post</button>
+							</div>
+						</form>
 
 				</div>
 				<!-- End of post an content -->
@@ -100,18 +102,17 @@
 				<!-- posted content view -->
 				<div class="allpost">
 					<!-- post 1 by creator-->
-					<div class="mainpost">
-						<div class="userimg"><img src="../images/homaj logo.png"/>
+					<div th:each="post: ${allPosts}" class="mainpost">
+						<div class="userimg"><img src="/images/user.png"/>
 						</div>
-					    <div class="username">				 <p class="name">SaveAlife</p>
+					    <div class="username" th:text="${post.author.firstName + ' ' + post.author.lastName}">				 <p class="name">SaveAlife</p>
 					    </div>
-						<p class="time">2min ago</p>
-						<p class="quotes">
-							Welcome to our app. You will be judged on what you wear, which music you listen to, what you look like, how you act, who you hang around with, and on practically every other personal trait and imperfection about you, and you'll be made fun of for being who you are. Enjoy your stay.
+						<p class="time" th:text="${post.dateTime.toLocalDate() + ' ' + post.dateTime.toLocalTime()}"></p>
+						<p class="quotes" th:text="${post.content}">
 						</p>
-						<div class="post">
-							<img class="postimg" src="../images/login/network society.jpg"/>
-						</div>
+<!--						<div class="post">-->
+<!--							<img class="postimg" src="../images/login/network society.jpg"/>-->
+<!--						</div>-->
 
 						<div class="likedislike">
 							<p class="like">
@@ -123,35 +124,6 @@
 						</div>
 
 					</div>
-					<!-- end of post 1 by creator -->
-
-					<!-- post 2 by creator -->
-					<div class="mainpost">
-						<div class="userimg"><img src="../images/homaj logo.png"/>
-						</div>
-					    <div class="username">				 <p class="name">homaj group</p>
-					    </div>
-						<p class="time">8min ago</p>
-						<p class="quotes">
-							A gender-equal society would be one where the word 'gender' does not exist: where everyone can be themselves.
-						</p>
-						<div class="post">
-							<img class="postimg" src="../images/login/society.jpg"/>
-						</div>
-
-						<div class="likedislike">
-							<p class="like">
-								<span class="nooflike" id="like2">0 </span> likes &nbsp <span class="noofdislike" id="dislike2">0 </span> dislikes
-							</p>
-							<p class="likedisbttn">
-								<span id="thumbsup2" class="fa fa-thumbs-up" onclick="increase('like2','dislike2','thumbsup2','thumbsdown2');"></span> <span id="thumbsdown2" class="fa fa-thumbs-down" onclick="decrease('like2','dislike2','thumbsup2','thumbsdown2');"></span>
-							</p>
-						</div>
-
-					</div>
-					<!-- end of post 2 by creator -->
-
-
 				</div>
 				<!-- end of posted content view -->
 
@@ -169,32 +141,32 @@
 
 					<!-- suggested user -->
 					<div class="rightcontent">
-						<img src="../images/profile/other_profile.png"/>
+						<img src="/images/user.png"/>
 						<p class="name">User Name</p>
 						<a href="#" id="connect1" onclick="changelogo('connect1');">&#x271A; Connect</a>
 
 					</div>
 
 					<div class="rightcontent">
-						<img src="../images/profile/other_profile.png"/>
+						<img src="/images/user.png"/>
 						<p class="name">User Name</p>
 						<a href="#" id="connect2" onclick="changelogo('connect2');">&#x271A; Connect</a>
 					</div>
 
 					<div class="rightcontent">
-						<img src="../images/profile/other_profile.png"/>
+						<img src="/images/user.png"/>
 						<p class="name">User Name</p>
 						<a href="#" id="connect3" onclick="changelogo('connect3');">&#x271A; Connect</a>
 					</div>
 
 					<div class="rightcontent">
-						<img src="../images/profile/other_profile.png"/>
+						<img src="/images/user.png"/>
 						<p class="name">User Name</p>
 						<a href="#" id="connect4" onclick="changelogo('connect4');">&#x271A; Connect</a>
 					</div>
 
 					<div class="rightcontent">
-						<img src="../images/profile/other_profile.png"/>
+						<img src="/images/user.png"/>
 						<p class="name">User Name</p>
 						<a href="#" id="connect5" onclick="changelogo('connect5');">&#x271A; Connect</a>
 					</div>
@@ -219,7 +191,7 @@
 						<li><a href="">Privacy and Policy</a></li>
 						<li><a href="">Help</a></li>
 					</ul>
-					<img src="../images/profile/other_profile.png"/>
+					<img src="/images/user.png"/>
 				</div>
 				</div>
 			</div>

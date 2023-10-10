@@ -1,5 +1,6 @@
 package com.cosc300.suicidal.service;
 
+import com.cosc300.suicidal.model.MyUserDetails;
 import com.cosc300.suicidal.model.PsychologistDetails;
 import com.cosc300.suicidal.model.User;
 import com.cosc300.suicidal.model.enums.UserRole;
@@ -13,6 +14,9 @@ import com.cosc300.suicidal.repository.PsychologistRepository;
 import com.cosc300.suicidal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -130,5 +134,16 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    public User getAuthenticatedUser() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        return userRepository.findUserByEmail(
+                (
+                        (MyUserDetails)(authentication.getPrincipal())
+                ).getUsername()
+        );
+
     }
 }
