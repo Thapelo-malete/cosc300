@@ -9,6 +9,7 @@ import com.cosc300.suicidal.registration.exceptions.EmailTakenException;
 import com.cosc300.suicidal.registration.exceptions.UserDoesNotExistException;
 import com.cosc300.suicidal.registration.exceptions.UserExistsException;
 import com.cosc300.suicidal.repository.PsychologistDetailsRepository;
+import com.cosc300.suicidal.repository.PsychologistRepository;
 import com.cosc300.suicidal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class UserService {
     private ConfirmationTokenRepository confirmationTokenRepository;
     @Autowired
     private PsychologistDetailsRepository psychologistDetailsRepository;
+    @Autowired
+    private PsychologistRepository psychologistRepository;
+
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -96,7 +100,9 @@ public class UserService {
             throw new EmailTakenException("User is already registered");
         }
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        String password = user.getFirstName().substring(0,3) + "." + user.getLastName().substring(0,3) + 123;
+        System.out.println(password);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setRole(UserRole.PSYCHOLOGIST);
         userRepository.save(user);
 
@@ -118,8 +124,8 @@ public class UserService {
         return "created";
     }
 
-    public List<PsychologistDetails> getAllPsychologists() {
-        return psychologistDetailsRepository.findAll();
+    public List<User> getAllPsychologists() {
+        return psychologistRepository.findAllByRole(UserRole.PSYCHOLOGIST);
     }
 
     public void deleteUser(Integer id) {

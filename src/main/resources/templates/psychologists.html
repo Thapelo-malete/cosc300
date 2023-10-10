@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/styles/adminStyle.css">
+        <script src="/scripts/adminScripts.js" defer></script>
+        <title>Admin</title>
+    </head>
+<body>
+    <nav class="top-nav">
+        <ul class="nav">
+            <li><a class="logo">SAVE <span>A LIFE</span></a></li>
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    <i class="fa fa-user-circle"></i>
+                    <span class="name">admin@savealife.com</span>
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-items">
+                    <li><a href="/app/account">Account <i class="far fa-id-badge"></i></a></li>
+                    <li><a href="/logout">Sign out <i class="fas fa-sign-out-alt"></i></a></li>
+                </ul>
+    
+            </li>
+        </ul>
+    </nav>
+    <section class="psychologist">
+        <div class="outer-container">
+            <a href="" class="back-btn"><i class="fas fa-arrow-circle-left"></i></a>
+            <h1>Psychologists</h1>
+            <ul class="navigation">
+                <li class="nav-item active">ALL</li>
+                <li class="nav-item">ELIGIBLE</li>
+                <li class="nav-item">INELIGIBLE</li>
+            </ul>
+            <div class="table-container vissible">
+                <table class="psy-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Names</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="psychologist: ${allPsychologists}">
+                            <td th:text="${psychologist.userId}"></td>
+                            <td th:text="${psychologist.firstName}"></td>
+                            <td th:text="${psychologist.lastName}"></td>
+                            <td th:text="${psychologist.email}"></td>
+                            <td><a th:href="${'/admin/psychologist/delete/' + psychologist.userId}">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-container">
+                <table class="psy-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Names</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+    
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+    
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-container">
+                <table class="psy-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Names</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+    
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+    
+                        <tr>
+                            <td>1</th>
+                            <td>Thapelo</th>
+                            <td>Malifi</td>
+                            <td>hello@Email.com</td>
+                            <td><button>Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="outer-container">
+            <h1>Add A Psychologist</h1>
+            <form method="post" action="/admin/psychologist/add">
+
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required autofocus>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+        
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </section>
+    
+</body>
+</html>

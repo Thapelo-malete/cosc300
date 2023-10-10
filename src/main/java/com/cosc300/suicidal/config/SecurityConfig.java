@@ -1,4 +1,4 @@
-package com.cosc300.suicidal.security;
+package com.cosc300.suicidal.config;
 
 import com.cosc300.suicidal.model.enums.UserRole;
 import com.cosc300.suicidal.service.MyUserDetailsService;
@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final MyAuthenticationSuccessHandler handler;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
@@ -42,7 +44,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
-                .successForwardUrl("/app")
+                .successHandler(handler)
                 .and()
                 .oauth2Login();
 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styles/adminStyle.css">
+    <script src="/scripts/adminScripts.js" defer></script>
+    <title>Admin</title>
+</head>
+<body>
+    <nav class="top-nav">
+        <ul class="nav">
+            <li><a class="logo">SAVE <span>A LIFE</span></a></li>
+            <li class="dropdown">
+					<button class="dropdown-btn">
+						<i class="fa fa-user-circle"></i>
+						<span class="name">admin@savealife.com</span>
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<ul class="dropdown-items">
+						<li><a href="/app/account">Account <i class="far fa-id-badge"></i></a></li>
+						<li><a href="/logout">Sign out <i class="fas fa-sign-out-alt"></i></a></li>
+					</ul>
+				
+            </li>
+        </ul>
+    </nav>
+    <section class="stats-section">
+        <h1 class="greetings">Hello Admin, Welcome back</h1>
+        <div class="outer-container">
+            <h2>Statistics</h2>
+            <div class="container">
+                <div class="card-container">
+                    <a href="">
+                        <div class="card user">
+                            <div class="icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="text">
+                                <h1>Users</h1>
+                                <span class="number">200</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+        
+        
+                <div class="card-container">
+                    <a href="/admin/psychologist">
+                        <div class="card psychologist">
+                            <div class="icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="text">
+                                <h1>Psychologists</h1>
+                                <span class="number">200</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+        
+                <div class="card-container">
+                    <a href="">
+                        <div class="card crimes">
+                            <div class="icon">
+                                <i class="fa-solid fa-handcuffs"></i>
+                            </div>
+                            <div class="text">
+                                <h1>Crimes</h1>
+                                <span class="number">200</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+        
+                <div class="card-container">
+                    <a href="">
+                        <div class="card reports">
+                            <div class="icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="text">
+                                <h1>Messages</h1>
+                                <span class="number">200</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        
+        </div>
+    </section>
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.cosc300.suicidal.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     private final UserService userService;
 
-    @GetMapping("/psycologist/add")
-    public String addPsychologist() {
-        return "add_psychologist";
+    @GetMapping("/psychologist")
+    public String addPsychologist(Model model) {
+        model.addAttribute("allPsychologists", userService.getAllPsychologists());
+        return "psychologists";
     }
 
     @PostMapping("/psychologist/add")
@@ -27,9 +29,14 @@ public class AdminController {
         return "redirect:/admin/psychologist";
     }
 
-    @GetMapping("/admin/psychologist/delete/{id}")
+    @GetMapping("/psychologist/delete/{id}")
     public String deletePsychologist(@PathVariable Integer id){
         userService.deleteUser(id);
         return "redirect:/admin/psychologist";
+    }
+
+    @GetMapping("/home")
+    public String adminHome() {
+        return "index";
     }
 }

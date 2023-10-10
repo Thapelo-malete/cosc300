@@ -135,4 +135,10 @@ public class AppController {
         model.addAttribute("psychologists", userService.getAllPsychologists());
         return "psychologist";
     }
+
+    @GetMapping("/community")
+    public String community(Model model) {
+        model.addAttribute("user", userService.getAuthenticatedUser());
+        return "home";
+    }
 }

@@ -54,7 +54,7 @@ body {
 
   .menu-button {
     padding: 10px;
-    font: 18px;
+    font-size: 18px;
     color: #fff;
     background-color: #333;
     border: 1px solid white;
@@ -89,7 +89,6 @@ body {
 
   .dropdown-items {
     position: absolute;
-    display: block;
     background-color: white;
     text-align: center;
     display: none;
